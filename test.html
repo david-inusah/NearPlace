@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+    <title>Dashboard</title>
+
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
+<link href="css/custom.css" rel="stylesheet">
+
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 50%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+  </head>
+  <body>
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Logo and responsive toggle -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="dashboard.html">
+                  <span><img src="img/pointer.jpg" width="35px" height="35px"></span> 
+                  Near Place
+                </a>
+            </div>
+        </div>
+        <!-- /.container -->
+    </nav>
+    <div class="footer-blurb">
+     <div class="container">
+       <!-- Heading -->
+       <br><br>
+       <font size="5px" color="cornflowerblue">Please select a place below to find</font>
+       <!-- /.row -->
+       <br><br><br>
+       <div class="row" style="padding-bottom:0px;">
+           <div class="col-sm-4 footer-blurb-item">
+              <a href="createpool.html" data-transition="flip" style="margin-left: 5px;"><img class="img-circle" src="img/Atm.png" alt="" style="width:60px; height:60px;"></a><a href="createpool.html" data-transition="flip" style="margin-left: 80px;"><img class="img-circle" src="img/restaurant.jpg" alt="" style="width:60px; height:60px;"></a><a href="createpool.html" data-transition="flip" style="margin-left: 90px;"><img class="img-circle" src="img/hotel.png" alt="" style="width:60px; height:60px;"></a>
+          </div>
+      </div>
+      <br><br>
+      <!-- /.row -->
+  </div>
+</div>
+    <div id="map"></div>
+    <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
+        });
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var getInput = position.coords.latitude;
+            var getInput1 = position.coords.longitude;
+            localStorage.setItem("latitude",getInput);
+            localStorage.setItem("longitude",getInput1);
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Present location.');
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEg7eMJ-miAafPaCYPJQXH0Zzo8Ar-o5U&callback=initMap">
+    </script>
+    <br>
+     <button type="submit" class="button button-block"><font size="4px">Tell a friend about this app</font></button>
+      <button type="submit" class="button button-block" style="float: right;"><font size="4px">Rate this app</font></button>
+  </body>
+</html>

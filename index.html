@@ -1,0 +1,103 @@
+  <!DOCTYPE html>
+  <html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Sign-Up/Login Form</title>
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+  </head>
+
+  <body>
+    <img src="img/login.gif" style="width:470px;height:790px">
+    <div class="form" style="position:absolute; top:10px; left:30px; width:1500px; height:670px">
+                  <font size="6px" color="white" style="margin-left: 60px">The Near Place</font>
+                            <font style="margin-left: 130px" size="2px" color="white">Welcome</font><br><br>
+
+        <ul class="tab-group">
+          <li class="tab active"><a href="#login">Log In</a></li>
+          <li class="tab"><a href="#signup">Register</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="login">
+            <form action="login.php" method="post">
+
+              <div class="field-wrap">
+              <label>
+                Email<span class="req">*</span>
+              </label>
+              <input type="email" name="email" required autocomplete="off"/>
+            </div>
+            <div class="field-wrap">
+              <label>
+                Password<span class="req">*</span>
+              </label>
+              <input type="password" name="password" required autocomplete="off"/>
+            </div>
+
+            <button class="button button-block"><font size="4px">Log In</font></button>
+
+            </form>
+          </div>
+          <div id="signup">
+            <form action="signup.php" method="post">
+
+              <div class="top-row">
+                <div class="field-wrap">
+                  <label>
+                    First Name<span class="req">*</span>
+                  </label>
+                  <input type="text" name="firstname" required autocomplete="off" />
+                </div>
+
+                <div class="field-wrap">
+                  <label>
+                    Last Name<span class="req">*</span>
+                  </label>
+                  <input type="text" name="lastname" required autocomplete="off"/>
+                </div>
+              </div>
+               <div class="field-wrap">
+                <label>
+                  Organization<span class="req">*</span>
+                </label>
+                <input type="text" name="organization" required autocomplete="off"/>
+              </div>
+              <div class="field-wrap">
+                <label>
+                  Email<span class="req">*</span>
+                </label>
+                <input type="email" name="email" required autocomplete="off"/>
+              </div>
+              <div class="field-wrap">
+                <label>
+                  Phone Number<span class="req">*</span>
+                </label>
+                <input type="number" name="number" required autocomplete="off"/>
+              </div>
+              <div class="field-wrap">
+                <label>
+                  Set A Password<span class="req">*</span>
+                </label>
+                <input type="password" name="setpassword" required autocomplete="off"/>
+              </div>
+
+              <button type="submit" class="button button-block"><font size="4px">Register</font></button>
+
+            </form>
+
+          </div>
+
+
+        </div><!-- tab-content -->
+
+  </div> <!-- /form -->
+    <script src='js/jquery.js'></script>
+
+        <script src="js/index.js"></script>
+
+  </body>
+  </html>
