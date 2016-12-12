@@ -1,10 +1,22 @@
+<!DOCTYPE html>
 <html>
 <head>
-	<link href="index.css" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="js/jquery-1.12.1.js"></script>
+    <title>Dashboard</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
+    <link href="css/custom.css" rel="stylesheet">
 	<script type="text/javascript">
 	var currentObj=null;
-	function deleteFileComplete(xhr,status){
+	function deleteUserComplete(xhr,status){
 		if(status!="success"){
 			confirm("Unable to delete file");
 			return;
@@ -21,16 +33,16 @@
 		}
 	}
 
-	function deleteFile(obj,usercode){
+	function deleteUser(obj,usercode){
 		var r = confirm("Are you sure you want to delete this user?");
 		if (r==false){
 			// alert("yattah");
 		}
 		else{
-			var ajaxURL="uajax.php?cmd=1&usercode="+usercode;
+			var ajaxURL="ajax.php?cmd=1&usercode="+usercode;
 			$.ajax(ajaxURL,
 				{async:true,
-					complete: deleteFileComplete}
+					complete: deleteUserComplete}
 					);
 			currentObj=obj;
 		}
@@ -38,8 +50,17 @@
 	</script>
 </head>
 <body>
-	<header><a href="#" title=""><img src="img/pointer.jpg"></a><h1> Admin Portal</h1></header>
-	<div style="margin-left:25%" class="content" style="color:black" style="background-color:black">
+	<body style="background:#A9A9A9;">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Logo and responsive toggle -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="admin.php">
+              <span><img src="img/pointer.jpg" width="35px" height="35px"></span> 
+              The Near Place: Admin Panel
+          </a>
+      </div>
+  </div>
 		<?php
 		include_once("Functions.php");
 		$obj = new Functions();
@@ -52,10 +73,11 @@
 		}
 		$row=$obj->fetch();
 		if($row>0){
-			echo "<table class='deltab'>
+			echo "<h3>Edit Application Users</h3>
+			<table class='deltab'>
 			<tr id='hd'>
 			<td></td>
-			<td>File Name</td>";
+			<td>Users</td>";
 			$count=0;
 			$num=1;
 			while ($row){
@@ -63,7 +85,7 @@
 					echo"<tr id='r1'>
 					<td >$num</td>
 					<td>{$row['Email']}</td>
-					<td style='width:2%'' class='action'><button onclick='deleteFile(this,$usercode)'><img class='bin' src='img/delete.png'></button></td>
+					<td style='width:2%'' class='action'><button onclick='deleteUser(this,$usercode)'><img class='bin' src='img/delete.png' style='height:10px;width:10px;'></button></td>
 					</tr>";
 					$count=1;
 				}
@@ -71,7 +93,7 @@
 					echo"<tr id='r2'>
 					<td >$num</td>
 					<td>{$row['Email']}</td>
-					<td style='width:2%'' class='action'><button onclick='deleteFile(this,$usercode)'><img class='bin' src='img/delete.png'></button></td>
+					<td style='width:2%'' class='action'><button onclick='deleteUser(this,$usercode)'><img class='bin' src='img/delete.png' style='height:10px;width:10px;'></button></td>
 					</tr>";
 				}
 				$row=$obj->fetch();

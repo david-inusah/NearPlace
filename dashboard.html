@@ -1,140 +1,198 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Dashboard</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
     <title>Dashboard</title>
 
-<!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
-<link href="css/custom.css" rel="stylesheet">
+    <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
+    <link href="css/custom.css" rel="stylesheet">
 
     <style>
       /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
+      * element that contains the map. */
       #map {
         height: 50%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
         height: 100%;
         margin: 0;
         padding: 0;
-      }
-    </style>
+    }
+</style>
 
-  </head>
-  <body>
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Logo and responsive toggle -->
-            <div class="navbar-header">
-                <a class="navbar-brand" href="dashboard.html">
-                  <span><img src="img/pointer.jpg" width="35px" height="35px"></span> 
-                  The Near Place
-                </a>
-            </div>
-        </div>
-        <!-- /.container -->
-    </nav>
-    <div class="footer-blurb">
-     <div class="container">
-       <!-- Heading -->
-       <br><br><br>
-       <font size="5px" color="cornflowerblue">Find a place around you!</font>
-       <br>
-       <font size="3px" color="cornflowerblue">Please select a place below to search. </font>
-       <!-- /.row -->
-       <br><br><br>
-       <div class="row" style="padding-bottom:0px;">
-           <div class="col-sm-4 footer-blurb-item">
-              <img class="img-circle" src="img/Atm.png" alt="" style="width:60px; height:60px;margin-left:5px;">
-              <img class="img-circle" src="img/restaurant.jpg" style="margin-left:70px;width:60px; height:60px;">
-              <img class="img-circle" src="img/hotel.png" style="width:60px; height:60px;margin-left: 50px;">
-               <div>
-          <button type="button" onclick="send1()" class="btn btn-default btn-sm" style="margin-left:10px; color: lightskyblue;">ATM</button>
-          <button type="button" onclick="send2()" class="btn btn-default btn-sm" style="margin-left:70px;color: lightskyblue;">Restaurant</button>
-          <button type="button" onclick="send3()" class="btn btn-default btn-sm" style="margin-left: 40px;color: lightskyblue;">Hotel</button>
-          </div>
-          </div>
-         
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Logo and responsive toggle -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="dashboard.html">
+              <span><img src="img/pointer.jpg" width="35px" height="35px"></span> 
+              The Near Place
+          </a>
       </div>
-      <!-- /.row -->
   </div>
+  <!-- /.container -->
+</nav>
+<div class="footer-blurb">
+ <div class="container">
+   <!-- Heading -->
+   <br><br><br>
+   <font size="5px" color="cornflowerblue">Find a place around you!</font>
+   <br>
+   <font size="3px" color="cornflowerblue">Please select a place below to find near you. </font>
+   <!-- /.row -->
+   <br><br><br>
+   <div class="row" style="padding-bottom:0px;">
+       <div class="col-sm-4 footer-blurb-item">
+          <a href="#" onclick="finder('atm')"><img class="img-circle" src="img/Atm.png" alt="" style="width:60px; height:60px;margin-left:5px;">Atm</a>
+          <a href="#" onclick="finder('restaurant')"><img class="img-circle" src="img/restaurant.jpg" style="margin-left:70px;width:60px; height:60px;">Restaurant</a>
+          <a href="#" onclick="finder('lodging')"><img class="img-circle" src="img/hotel.png" style="width:60px; height:60px;margin-left: 50px;">Hotel</a>
+      </div>
+
+  </div>
+  <!-- /.row -->
 </div>
-    <div id="map"></div>
-    <script>
+</div>
+<div id="map"></div>
+<script>
 
     var pos = null;
-
-    function send1(){
-        window.open('atm.html?cordinates='+pos, "_self");
-    }
-    function send2(){
-        window.open('restaurant.html?cordinates='+pos, "_self");
-    }
-    function send3(){
-        window.open('hotel.html?cordinates='+pos, "_self");
-    }
     function send(){
         window.open('rateapp.html', "_self");
     }
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
 
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 6
-        });
-        var infoWindow = new google.maps.InfoWindow({map: map});
+    function initMap() {
 
-        // Try HTML5 geolocation.
+        var infoWindow;
+        var image = 'img/location.png';
+        // var pyrmont;
+
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-             pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Your Present location.');
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
+           function success(pos) {
+            var location = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: location,
+                zoom: 15
+            });
+
+            var text = "Your current location";
+
+            infoWindow = new google.maps.InfoWindow({
+                content: text
+            });
+
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                icon:image,
+            });
+
+            marker.addListener('click', function () {
+                infoWindow.open(map, marker);
+            });
         }
-      }
+    }
 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEg7eMJ-miAafPaCYPJQXH0Zzo8Ar-o5U&callback=initMap">
-    </script>
-    <button type="button" class="btn btn-default btn-sm" style="margin-left:5px; color: lightskyblue;">Tell a friend about this app</button>
-    <button type="button" class="btn btn-default btn-sm" style="float: right;color: lightskyblue;" onclick="send()">Rate this app</button>  
-      <!-- <button type="submit" class="button button-block" style="float: right;"><font size="4px">Rate this app</font></button> -->
-  </body>
+    function fail(error) {
+        alert("Error finding your location.")
+    }
+
+    navigator.geolocation.getCurrentPosition(success, fail, {
+        maximumAge: 500000,
+        enableHighAccuracy: true,
+        timeout: 6000
+    });
+}
+
+function finder(serviceplace) {
+    var infowindow;
+    var image = 'img/location.png';
+    var location;
+
+    if (navigator.geolocation) {
+
+       function success(pos) {
+        location = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: location,
+            zoom: 15
+        });
+
+        var text = "Your current location";
+
+        infowindow = new google.maps.InfoWindow({
+            content: text
+        });
+
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            icon:image,
+        });
+
+        marker.addListener('click', function () {
+            infowindow.open(map, marker);
+        });
+
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+            location: location,
+            radius: 2000,
+            type: [serviceplace]
+        }, callback);
+    }
+}
+
+function fail(error) {
+    alert("Error finding your location.")
+}
+
+navigator.geolocation.getCurrentPosition(success, fail, {
+    maximumAge: 500000,
+    enableHighAccuracy: true,
+    timeout: 6000
+});
+}
+
+function callback(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        createMarker(results[i]);
+    }
+}
+}
+
+function createMarker(place) {
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+  });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(place.name);
+      infowindow.setContent(place.formatted_address);
+      infowindow.open(map, this);
+  });
+}
+</script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=   AIzaSyBEg7eMJ-miAafPaCYPJQXH0Zzo8Ar-o5U&libraries=places&callback=initMap">
+</script>
+
+<button type="button" class="btn btn-default btn-sm" style="margin-left:5px; color: lightskyblue;">Tell a friend about this app</button>
+<button type="button" class="btn btn-default btn-sm" style="float: right;color: lightskyblue;" onclick="send()">Rate this app</button>  
+</body>
 </html>

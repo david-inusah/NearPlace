@@ -28,7 +28,7 @@ switch($cmd){
 		include_once("Functions.php");
 		$obj=new Functions();
 		//delete the file
-		if($obj->deleteFile($usercode)){
+		if($obj->deleteUser($usercode)){
 			echo '{"result":1,"message":"File deleted"}';
 		}else{
 			echo '{"result":0,"message":"File not deleted"}';

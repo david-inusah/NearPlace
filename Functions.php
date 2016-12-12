@@ -33,7 +33,7 @@ class Functions extends Adb{
         $strQuery = "select usercode from users where email='$email'";
         return $this->query($strQuery);
     }
-    function deleteFile ($usercode){
+    function deleteUser($usercode){
         $strQuery="delete from users where usercode=$usercode";
         return $this->query($strQuery);
     }

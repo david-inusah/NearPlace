@@ -1,7 +1,6 @@
 <?php
 if(isset($_REQUEST['email'])&&isset($_REQUEST['password'])) {
 	$db=new mysqli("127.0.0.1","root","","nearplace");
-
 	if($db->connect_errno!=0){
 		echo "error authenticating-connection {$db->connect_error}";
 		exit();
